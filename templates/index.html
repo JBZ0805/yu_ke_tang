@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"/>
+    <script type="application/javascript" src="{{ url_for('static',filename='js/index.js') }}"></script>
+    <title>雨课堂</title>
+</head>
+
+<script>
+    function joinclass() {
+        alert("班级加入成功！")
+    }
+
+</script>
+<script>
+    function createcourse() {
+        alert("课程创建成功！")
+    }
+
+</script>
+
+<body>
+<meta name="referrer" content="no-referrer"/>
+
+<div class="header">
+    <div id='barMenu'>
+        <ul class="barmenu">
+            <li>
+                <a href="#teach-1" style="color: black;">我的班级</a>
+            </li>
+            <li>
+                <a href="#mycourse" style="color: black;">我听的课</a>
+            </li>
+            <li>
+                <a href="#container-1" style="color: black;">加入班级</a>
+            </li>
+            <li>
+                <a href="#course-container" style="color: black;">创建课程</a>
+            </li>
+
+        </ul>
+    </div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>用户名: <a>{{ username }}</a></li>
+            <li>班级号：<a>{{ class_id }}</a></li>
+            <li>
+                <a href="/upload" target="_blank">资源库</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div id="container">
+    <div id="teach-1">
+        <div id="teach-1-contaniner">
+            <div id="classid">
+                {% if class_id==None %}
+                    <h3 style="text-align: center;">您暂时还没有加入班级，请先加入班级</h3>
+                {% else %}
+                    <h4 style="text-align: center;">当前所在班级号为:{{ class_id }}</h4>
+                {% endif %}
+            </div>
+            <div id="classmember">
+                {% if class_id!='none' %}
+
+                    <h3 style="text-align: center">班级成员</h3>
+                    <h4 style="text-align: center">共计：{{ class_member|length }}人</h4>
+                    <ul>
+                        {% for item in class_member %}
+                            <li style="list-style-type: decimal">用户名:{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <div id="listen-1">
+        <div id="container-1">
+            <div class="form-2">
+                <h3>加入班级</h3>
+                {% if class_id==None %}
+                    <form action="" method="post">
+                        <li><input type="text" name="class-id" placeholder="&nbsp;班级号"/></li>
+                        <li><input type="submit" style="width: 80%;margin-top: 10px;" value="提交"
+                                   onclick="createcourse()"/></li>
+                    </form>
+                {% else %}
+                    <h3 style="text-align: center;">您已经加入班级,不能重复添加!</h3>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <div id="mycourse">
+        <div id="mycourse-1">
+            <div id="coursehead">
+                <h3 style="text-align: center;">{{ username }}的课程表</h3>
+            </div>
+            <div id="coursecontent">
+                <h3 style="text-align: center">共计{{ course_list|length }}门课</h3>
+                <h3 style="text-align: center">班级号：{{ class_id }}</h3>
+                <ul>
+                    {% for item in course_list %}
+                        <li style="list-style-type: decimal;margin-left:80px">课程{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+    <div id="course-1">
+        <div id="course-container">
+            <div class="form-1">
+                <h3>创建课程</h3>
+                <form action="" method="post">
+                    <li><input type="text" name="course_id" placeholder="&nbsp;课程号"/></li>
+                    <li><input type="text" name="course_name" style="margin-top: 10px;" placeholder="&nbsp;课程名"/></li>
+                    <li><input type="submit" style="width: 80%;margin-top: 10px;" value="提交" onclick="createcourse()"/>
+                    </li>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

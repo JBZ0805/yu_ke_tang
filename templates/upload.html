@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"/>
+    <script type="application/javascript" src="{{ url_for('static',filename='js/index.js') }}"></script>
+    <title>雨课堂资源库</title>
+</head>
+<body>
+<meta name="referrer" content="no-referrer"/>
+
+<div class="header">
+    <div id='barMenu'>
+        <ul class="barmenu">
+            <li>
+                <a href="" style="color: black;">文件库</a>
+            </li>
+            <li>
+                <a href="/index" style="color: black;">返回</a>
+            </li>
+
+
+        </ul>
+    </div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>用户名: <a>{{ username }}</a></li>
+            <li>班级号：<a>{{ class_id }}</a></li>
+            <li>
+                <a href="https://instagram.com/plavookac" target="_blank">资源库</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div id="container">
+    <div id="content">
+        <div id="uploadfile">
+            <form action="" method="post" enctype="multipart/form-data">
+                <li><input type="file" name="file" style="margin-top: 10px;"/></li>
+                <li><input type="submit" value="上传"/></li>
+            </form>
+        </div>
+        <div id="displaynav1">
+            <li style="margin-left: 20px;"><a>全部文件</a></li>
+            <li style="margin-left:480px;"><a>已全部加载，共{{ file_list|length }}个</a></li>
+        </div>
+        <div id="displayfile">
+            <table border=1>
+                <tr>
+                    <td colspan=3 style="text-align: center;">资源库</td>
+                <tr>
+                    <td>文件名</td>
+                    <td>上传时间</td>
+                    <td>操作</td>
+                </tr>
+                {% for item,items in zip_list %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ items }}</td>
+                        <td><a href="/delete/{{ item }}">删除</a></td>
+                    </tr>
+
+                {% endfor %}
+
+
+            </table>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
